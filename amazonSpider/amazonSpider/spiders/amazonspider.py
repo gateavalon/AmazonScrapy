@@ -12,9 +12,9 @@ class AmazonspiderSpider(scrapy.Spider):
 
         items = AmazonspiderItem()
 
-        product_img = response.css('.s-image::attr(src)').extract()
+        product_img = response.css('img.s-image::attr(src)').extract()
         product_price = response.css('span.a-offscreen::text').extract()
-        product_name = response.css('.a-text-normal::text').extract()
+        product_name = response.css('span.a-text-normal::text').extract()
 
         items['product_img'] = product_img
         items['product_price'] = product_price
@@ -22,7 +22,7 @@ class AmazonspiderSpider(scrapy.Spider):
 
         yield items
 
-        # nextpage = response.css('li.a-last a::attr(href)').get()
-        # if nextpage is not None:
-        #     yield response.follow(nextpage, callback=self.parse)
+        nextpage = response.css('li.a-last a::attr(href)').get()
+        if nextpage is not None:
+            yield response.follow(nextpage, callback=self.parse)
 
