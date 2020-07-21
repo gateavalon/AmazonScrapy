@@ -17,11 +17,8 @@ class AmazonspiderPipeline:
         # create connection to the DB and collection
         self.conn = pymongo.MongoClient(
             "mongodb+srv://gateavalon:WmmTU2FARI81bUtD@clustergl-6x39r.mongodb.net/<dbname>?retryWrites=true&w=majority")
-        db = self.conn['myquotes']
-        self.collection = db['quotes_tb']
-
-
-
+        db = self.conn['amazonspider']
+        self.collection = db['laptoptable']
 
     def process_item(self, item, spider):
         self.collection.insert(dict(item))
